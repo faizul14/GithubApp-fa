@@ -2,6 +2,9 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.com.google.dagger.hilt.android)
+    kotlin("kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -45,4 +48,24 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    //androidX
+    implementation(libs.livedata.ktx)
+    implementation(libs.activityktx)
+    implementation(libs.fragmentktx)
+    //hilt
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
+    //room
+//    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
+    //kotlin corountinus
+    implementation(libs.kotlin.corountine.core)
+    implementation(libs.kotlin.corountine)
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.convert.gson)
+    implementation(libs.loging.interceptor)
+
 }

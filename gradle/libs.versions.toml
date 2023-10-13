@@ -8,6 +8,16 @@ espresso-core = "3.5.1"
 appcompat = "1.6.1"
 material = "1.8.0"
 constraintlayout = "2.1.4"
+lifecycle-livedata-ktx = "2.3.1"
+activity-ktx = "1.2.3"
+fragment-ktx = "1.3.4"
+hilt = "2.47"
+androidx-hilt = "1.0.0"
+data-room = "2.5.2"
+data-room-ktx = "2.2.0"
+kotlin-corountinus = "1.5.2"
+retrofit_version = "2.9.0"
+logging_interceptor_version = '4.9.0'
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -17,10 +27,33 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+#AndroidX
+livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle-livedata-ktx" }
+activityktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity-ktx" }
+fragmentktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
+#HIlt
+dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+dagger-hiltktx = { group = "androidx.hilt", name = "hilt-work", version.ref = "androidx-hilt" }
+dagger-hiltktx-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "androidx-hilt" }
+#Data Room
+#room-runtime = { group = "androidx.room", name = "room-runtimer", version.ref = "data-room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "data-room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "data-room-ktx" }
+#kotlin Corountinus
+kotlin-corountine-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlin-corountinus" }
+kotlin-corountine = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlin-corountinus" }
+#Retrofit
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit_version" }
+retrofit-convert-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit_version" }
+loging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging_interceptor_version" }
+
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
+com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
 
 [bundles]
 
