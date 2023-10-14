@@ -18,6 +18,8 @@ data-room-ktx = "2.2.0"
 kotlin-corountinus = "1.5.2"
 retrofit_version = "2.9.0"
 logging_interceptor_version = '4.9.0'
+circle-image-versio = "3.1.0"
+glide-image-versio = "4.14.2"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -47,6 +49,9 @@ kotlin-corountine = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutine
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit_version" }
 retrofit-convert-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit_version" }
 loging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging_interceptor_version" }
+# image
+circle-image = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circle-image-versio" }
+glide-image = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide-image-versio" }
 
 
 [plugins]

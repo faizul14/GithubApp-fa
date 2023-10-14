@@ -1,5 +1,6 @@
 package com.faezolfp.gomovieapp.core.domain.usecase
 
+import com.faezolfp.githubapp.core.data.Resource
 import com.faezolfp.githubapp.core.domain.model.ModelDataUser
 import com.faezolfp.githubapp.core.domain.model.ModelDetailUser
 import com.faezolfp.githubapp.core.domain.model.ModelRepoUser
@@ -12,13 +13,14 @@ class ImplUseCase @Inject constructor(private val repository: Repository) : UseC
         return repository.example()
     }
 
-    override fun getDataUser(): Flow<List<ModelDataUser>> {
+    override fun getDataUser(): Flow<Resource<List<ModelDataUser>>> {
         return repository.getDataUser()
     }
 
-    override fun getDetailUser(username: String): Flow<ModelDetailUser> {
+    override fun getDetailUser(username: String): Flow<Resource<ModelDetailUser>> {
         return repository.getDetailUser(username)
     }
+
 
     override fun getRepoUser(username: String): Flow<List<ModelRepoUser>> {
         return repository.getRepoUser(username)
