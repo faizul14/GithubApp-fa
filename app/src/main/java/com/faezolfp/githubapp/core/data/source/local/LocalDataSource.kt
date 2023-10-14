@@ -14,5 +14,6 @@ class LocalDataSource @Inject constructor(
 
     suspend fun addUser(dataUser: DataUserEntity) = userDao.addUser(dataUser)
 
-    suspend fun deleteUser(dataUser: DataUserEntity) = userDao.deleteUser(dataUser)
+    suspend fun deleteUser(dataUser: DataUserEntity) = dataUser.id?.toInt()
+        ?.let { userDao.deleteUser(it) }
 }

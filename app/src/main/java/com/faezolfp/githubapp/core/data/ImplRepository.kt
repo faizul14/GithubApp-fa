@@ -1,5 +1,6 @@
 package com.faezolfp.githubapp.core.data
 
+import android.util.Log
 import com.faezolfp.githubapp.core.data.source.local.LocalDataSource
 import com.faezolfp.githubapp.core.data.source.remote.RemoteDataSource
 import com.faezolfp.githubapp.core.data.source.remote.network.ApiResponse
@@ -79,6 +80,7 @@ class ImplRepository @Inject constructor(
     }
 
     override suspend fun deleUser(dataUser: ModelDataUser) {
+        Log.d("TRACKER", "delete di jalankan ${dataUser.login.toString()}")
         localDataSource.deleteUser(DataMapper.mapModelDataUserToEntityDataUser(dataUser))
     }
 

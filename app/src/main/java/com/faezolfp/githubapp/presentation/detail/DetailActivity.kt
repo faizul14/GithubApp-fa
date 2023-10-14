@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.faezolfp.githubapp.R
@@ -25,6 +26,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.title = "Detail User"
 
         val dataLogin = intent.getStringExtra(EXTRA_NAME)
         Log.d("TRACK", dataLogin.toString())
@@ -41,7 +43,10 @@ class DetailActivity : AppCompatActivity() {
                 id = dataDetailUser.id,
                 login = dataDetailUser.login
             )
+
+            Toast.makeText(this, transaction.name.toString()+data.id.toString(), Toast.LENGTH_SHORT).show()
             viewModel.transaction(transaction, data)
+            observerDataIsAvailable()
         }
     }
 
@@ -69,26 +74,28 @@ class DetailActivity : AppCompatActivity() {
                         itmDetail.txtUsernameUser.text = dataDetail.data?.login
                         itmDetail.txtBioUser.text = dataDetail.data?.bio
                     }
+                    observerDataIsAvailable()
                 }
             }
-
-            //observer dataAVAILABLE
-            viewModel.dataIsAvailable(dataDetail.data?.id.toString()).observe(this){isAvailable ->
-                when(isAvailable) {
-                    true -> {
-                        transaction = TransactionDbFor.FORDELETEUSER
-                        binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_24))
-                    }
-                    false -> {
-                        transaction = TransactionDbFor.FORADDUSER
-                        binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_border_24))
-
-                    }
-                }
-            }
-
         }
 
+    }
+
+    private fun observerDataIsAvailable(){
+        //observer dataAVAILABLE
+        viewModel.dataIsAvailable(dataDetailUser.id.toString()).observe(this){isAvailable ->
+            when(isAvailable) {
+                true -> {
+                    transaction = TransactionDbFor.FORDELETEUSER
+                    binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_24))
+                }
+                false -> {
+                    transaction = TransactionDbFor.FORADDUSER
+                    binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_border_24))
+
+                }
+            }
+        }
     }
 
     companion object{

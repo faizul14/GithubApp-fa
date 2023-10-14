@@ -37,6 +37,11 @@ class FavoriteActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        observerViewModel()
+    }
+
     private fun observerViewModel() {
         viewModel.getListUser().observe(this){data ->
             when(data) {
@@ -53,6 +58,7 @@ class FavoriteActivity : AppCompatActivity() {
                     if (data.data!!.isNotEmpty()) {
                         adapter.setData(data.data)
                         binding.rvDataUser.adapter = adapter
+                        adapter.notifyDataSetChanged()
                     }
                     Log.d("TRACK", data.data.toString())
                 }
