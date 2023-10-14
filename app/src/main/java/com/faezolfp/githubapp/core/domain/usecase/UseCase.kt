@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface UseCase {
     fun example(): String
     fun getDataUser(): Flow<Resource<List<ModelDataUser>>>
+    fun getSearch(username: String): Flow<Resource<List<ModelDataUser>>>
     fun getDetailUser(username: String): Flow<Resource<ModelDetailUser>>
     fun getRepoUser(username: String): Flow<List<ModelRepoUser>>
 

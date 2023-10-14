@@ -18,6 +18,10 @@ class ImplUseCase @Inject constructor(private val repository: Repository) : UseC
         return repository.getDataUser()
     }
 
+    override fun getSearch(username: String): Flow<Resource<List<ModelDataUser>>> {
+        return repository.getSearch(username)
+    }
+
     override fun getDetailUser(username: String): Flow<Resource<ModelDetailUser>> {
         return repository.getDetailUser(username)
     }

@@ -37,7 +37,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setUpButton() {
-        binding.btnFavorite.setOnClickListener {
+        binding.itmDetail.btnFavorite.setOnClickListener {
             val data = ModelDataUser(
                 avatarUrl = dataDetailUser.avatarUrl,
                 id = dataDetailUser.id,
@@ -87,11 +87,11 @@ class DetailActivity : AppCompatActivity() {
             when(isAvailable) {
                 true -> {
                     transaction = TransactionDbFor.FORDELETEUSER
-                    binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_24))
+                    binding.itmDetail.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_24))
                 }
                 false -> {
                     transaction = TransactionDbFor.FORADDUSER
-                    binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_border_24))
+                    binding.itmDetail.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_border_24))
 
                 }
             }

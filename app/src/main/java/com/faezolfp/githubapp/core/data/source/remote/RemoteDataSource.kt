@@ -53,6 +53,24 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
+    fun getSearch(username: String): Flow<ApiResponse<List<ResponseDataUserItem>>> {
+        return flow {
+            try {
+                val response = apiService.searchUser(username)
+                val data = response
+                if (data.isNotEmpty()) {
+                    emit(ApiResponse.Success(response))
+                } else {
+                    emit(ApiResponse.Empty)
+                    Log.d(TAG, response.toString())
+                }
+            } catch (e: Exception) {
+                ApiResponse.Error(e.message.toString())
+                Log.d(TAG, e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
 
     fun getRespoUser(username: String): Flow<List<ResponseRepoUserItem>> {
         return flow {

@@ -48,6 +48,28 @@ class ImplRepository @Inject constructor(
         }
     }
 
+    override fun getSearch(username: String): Flow<Resource<List<ModelDataUser>>> {
+        return flow {
+            emit(Resource.Loading())
+            val dataResponse = remoteDataSource.getSearch(username).first()
+            when (dataResponse) {
+                is ApiResponse.Success -> {
+                    val data = DataMapper.mapResponseDataUserToModelDataUser(dataResponse.data)
+                    val dataResult = flowOf(Resource.Success(data))
+                    emitAll(dataResult)
+                }
+
+                is ApiResponse.Error -> {
+                    emit(Resource.Error(dataResponse.errorMessage))
+                }
+
+                is ApiResponse.Empty -> {
+                    emit(Resource.Loading())
+                }
+            }
+        }
+    }
+
     override fun getDetailUser(username: String): Flow<Resource<ModelDetailUser>> {
         return flow {
             emit(Resource.Loading())

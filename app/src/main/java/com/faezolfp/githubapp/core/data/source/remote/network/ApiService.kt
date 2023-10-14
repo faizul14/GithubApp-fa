@@ -26,9 +26,9 @@ interface ApiService {
         @Path("login") login: String
     ): List<ResponseRepoUserItem>
 
-    @GET("search/users")
     @Headers("Authorization: token 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")
+    @GET("search/users")
     suspend fun searchUser(
         @Query("q") login: String
-    ): ResponseDataUser
+    ): List<ResponseDataUserItem>
 }
