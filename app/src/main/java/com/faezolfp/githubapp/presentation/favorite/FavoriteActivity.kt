@@ -1,26 +1,28 @@
-package com.faezolfp.githubapp.presentation.home
+package com.faezolfp.githubapp.presentation.favorite
 
-import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.faezolfp.githubapp.R
 import com.faezolfp.githubapp.core.data.Resource
+import com.faezolfp.githubapp.core.ui.FavoriteActivityAdapter
 import com.faezolfp.githubapp.core.ui.MainActivityAdapter
-import com.faezolfp.githubapp.databinding.ActivityMainBinding
-import com.faezolfp.githubapp.presentation.favorite.FavoriteActivity
+import com.faezolfp.githubapp.databinding.ActivityDetailBinding
+import com.faezolfp.githubapp.databinding.ActivityFavoriteBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private val viewModel: MainActivityViewModel by viewModels()
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: MainActivityAdapter
+class FavoriteActivity : AppCompatActivity() {
+    private val viewModel: FavoriteViewModel by viewModels()
+    private lateinit var binding: ActivityFavoriteBinding
+    private lateinit var adapter: FavoriteActivityAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setUpInit()
@@ -28,33 +30,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpInit() {
-        adapter = MainActivityAdapter()
+        adapter = FavoriteActivityAdapter()
         binding.rvDataUser.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = GridLayoutManager(this@FavoriteActivity, 2)
             setHasFixedSize(true)
-        }
-        setupButton()
-    }
-
-    private fun setupButton() {
-        binding.btnGotofav.setOnClickListener{
-            val move = Intent(this, FavoriteActivity::class.java)
-            startActivity(move)
         }
     }
 
     private fun observerViewModel() {
-        viewModel.dataListAppGithub().observe(this) { data ->
-            when (data) {
+        viewModel.getListUser().observe(this){data ->
+            when(data) {
                 is Resource.Loading -> {
                     binding.rvDataUser.visibility = View.GONE
                     binding.progresLoading.visibility = View.VISIBLE
                 }
-
                 is Resource.Error -> {
 
                 }
-
                 is Resource.Success -> {
                     binding.progresLoading.visibility = View.GONE
                     binding.rvDataUser.visibility = View.VISIBLE

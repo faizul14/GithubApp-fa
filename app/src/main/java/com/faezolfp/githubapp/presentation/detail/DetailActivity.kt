@@ -8,13 +8,19 @@ import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.faezolfp.githubapp.R
 import com.faezolfp.githubapp.core.data.Resource
+import com.faezolfp.githubapp.core.domain.model.ModelDataUser
+import com.faezolfp.githubapp.core.domain.model.ModelDetailUser
+import com.faezolfp.githubapp.core.utils.TransactionDbFor
 import com.faezolfp.githubapp.databinding.ActivityDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.observeOn
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val viewModel: DetailActivityViewModel by viewModels()
+    private lateinit var dataDetailUser: ModelDetailUser
+    private lateinit var transaction: TransactionDbFor
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -24,6 +30,18 @@ class DetailActivity : AppCompatActivity() {
         Log.d("TRACK", dataLogin.toString())
         if (dataLogin != null){
             observeViewModel(dataLogin)
+        }
+        setUpButton()
+    }
+
+    private fun setUpButton() {
+        binding.btnFavorite.setOnClickListener {
+            val data = ModelDataUser(
+                avatarUrl = dataDetailUser.avatarUrl,
+                id = dataDetailUser.id,
+                login = dataDetailUser.login
+            )
+            viewModel.transaction(transaction, data)
         }
     }
 
@@ -42,6 +60,7 @@ class DetailActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     binding.progresLoading.visibility = View.GONE
                     binding.itmDetail.view.visibility = View.VISIBLE
+                    dataDetailUser = dataDetail.data!!
                     Glide.with(this)
                         .load(dataDetail.data?.avatarUrl)
                         .into(binding.itmDetail.imgDetaiUser)
@@ -52,7 +71,24 @@ class DetailActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            //observer dataAVAILABLE
+            viewModel.dataIsAvailable(dataDetail.data?.id.toString()).observe(this){isAvailable ->
+                when(isAvailable) {
+                    true -> {
+                        transaction = TransactionDbFor.FORDELETEUSER
+                        binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_24))
+                    }
+                    false -> {
+                        transaction = TransactionDbFor.FORADDUSER
+                        binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.baseline_bookmark_border_24))
+
+                    }
+                }
+            }
+
         }
+
     }
 
     companion object{

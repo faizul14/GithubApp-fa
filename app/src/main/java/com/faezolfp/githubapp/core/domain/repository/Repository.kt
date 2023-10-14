@@ -11,4 +11,9 @@ interface Repository {
     fun getDataUser(): Flow<Resource<List<ModelDataUser>>>
     fun getDetailUser(username: String): Flow<Resource<ModelDetailUser>>
     fun getRepoUser(username: String): Flow<List<ModelRepoUser>>
+    suspend fun addUser(dataUser: ModelDataUser)
+    suspend fun deleUser(dataUser: ModelDataUser)
+    fun getListUserFormDb() : Flow<Resource<List<ModelDataUser>>>
+    fun checkDataIsAvailable(dataId: String): Flow<Boolean>
+
 }

@@ -39,7 +39,7 @@ dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compi
 dagger-hiltktx = { group = "androidx.hilt", name = "hilt-work", version.ref = "androidx-hilt" }
 dagger-hiltktx-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "androidx-hilt" }
 #Data Room
-#room-runtime = { group = "androidx.room", name = "room-runtimer", version.ref = "data-room" }
+room-runtime = { group = "androidx.room", name = "room-runtimer", version.ref = "data-room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "data-room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "data-room-ktx" }
 #kotlin Corountinus

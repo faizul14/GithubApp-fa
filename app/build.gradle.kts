@@ -59,8 +59,12 @@ dependencies {
     kapt(libs.dagger.hilt.compiler)
     //room
 //    implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
-    implementation(libs.room.ktx)
+//    kapt(libs.room.compiler)
+//    implementation(libs.room.ktx)
+    //dataroom
+    implementation ("androidx.room:room-runtime:2.5.2")
+    implementation ("androidx.room:room-ktx:2.2.0")
+    kapt ("androidx.room:room-compiler:2.5.2")
     //kotlin corountinus
     implementation(libs.kotlin.corountine.core)
     implementation(libs.kotlin.corountine)
