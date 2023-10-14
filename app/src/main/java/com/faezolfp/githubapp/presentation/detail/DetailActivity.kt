@@ -43,8 +43,6 @@ class DetailActivity : AppCompatActivity() {
                 id = dataDetailUser.id,
                 login = dataDetailUser.login
             )
-
-            Toast.makeText(this, transaction.name.toString()+data.id.toString(), Toast.LENGTH_SHORT).show()
             viewModel.transaction(transaction, data)
             observerDataIsAvailable()
         }
