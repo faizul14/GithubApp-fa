@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ImplRepository @Inject constructor(
@@ -54,7 +53,7 @@ class ImplRepository @Inject constructor(
             val dataResponse = remoteDataSource.getSearch(username).first()
             when (dataResponse) {
                 is ApiResponse.Success -> {
-                    val data = DataMapper.mapResponseDataUserToModelDataUser(dataResponse.data)
+                    val data = DataMapper.mapResponseDataUserToModelDataUserForSearch(dataResponse.data.items)
                     val dataResult = flowOf(Resource.Success(data))
                     emitAll(dataResult)
                 }

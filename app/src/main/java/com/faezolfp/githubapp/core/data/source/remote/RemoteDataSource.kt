@@ -3,6 +3,8 @@ package com.faezolfp.githubapp.core.data.source.remote
 import android.util.Log
 import com.faezolfp.githubapp.core.data.source.remote.network.ApiResponse
 import com.faezolfp.githubapp.core.data.source.remote.network.ApiService
+import com.faezolfp.githubapp.core.data.source.remote.reponse.ItemsItem
+import com.faezolfp.githubapp.core.data.source.remote.reponse.ResponseDataSearch
 import com.faezolfp.githubapp.core.data.source.remote.reponse.ResponseDataUserItem
 import com.faezolfp.githubapp.core.data.source.remote.reponse.ResponseDetailUser
 import com.faezolfp.githubapp.core.data.source.remote.reponse.ResponseRepoUserItem
@@ -53,12 +55,12 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    fun getSearch(username: String): Flow<ApiResponse<List<ResponseDataUserItem>>> {
+    fun getSearch(username: String): Flow<ApiResponse<ResponseDataSearch>> {
         return flow {
             try {
                 val response = apiService.searchUser(username)
                 val data = response
-                if (data.isNotEmpty()) {
+                if (data.items?.isNotEmpty() == true && data.items != null) {
                     emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)

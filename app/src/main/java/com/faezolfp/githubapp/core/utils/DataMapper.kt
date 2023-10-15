@@ -1,12 +1,11 @@
 package com.faezolfp.githubapp.core.utils
 
 import com.faezolfp.githubapp.core.data.source.local.entity.DataUserEntity
+import com.faezolfp.githubapp.core.data.source.remote.reponse.ItemsItem
 import com.faezolfp.githubapp.core.data.source.remote.reponse.ResponseDataUserItem
 import com.faezolfp.githubapp.core.data.source.remote.reponse.ResponseDetailUser
-import com.faezolfp.githubapp.core.data.source.remote.reponse.ResponseRepoUserItem
 import com.faezolfp.githubapp.core.domain.model.ModelDataUser
 import com.faezolfp.githubapp.core.domain.model.ModelDetailUser
-import com.faezolfp.githubapp.core.domain.model.ModelRepoUser
 
 object DataMapper {
     fun mapResponseDataUserToModelDataUser(input: List<ResponseDataUserItem>): List<ModelDataUser> {
@@ -16,6 +15,19 @@ object DataMapper {
                 avatarUrl = it.avatarUrl,
                 id = it.id,
                 login = it.login,
+            )
+            dataUsertList.add(dataUser)
+        }
+        return dataUsertList
+    }
+
+    fun mapResponseDataUserToModelDataUserForSearch(input: List<ItemsItem?>?): List<ModelDataUser> {
+        val dataUsertList = ArrayList<ModelDataUser>()
+        input?.map {
+            val dataUser = ModelDataUser(
+                avatarUrl = it?.avatarUrl,
+                id = it?.id,
+                login = it?.login,
             )
             dataUsertList.add(dataUser)
         }

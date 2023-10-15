@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import com.faezolfp.githubapp.databinding.ActivityMainBinding
 import com.faezolfp.githubapp.presentation.favorite.FavoriteActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -51,12 +53,19 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    lifecycleScope.launch {
-                        viewModel.queryChannel.value = p0.toString()
+                    try {
+                        lifecycleScope.launch {
+                            viewModel.queryChannel.value = p0.toString()
+                        }
+                    }catch (e : Exception){
+                        Log.d("TRACK", "crash cause ${e.message}")
                     }
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
+                    if (p0.isNullOrBlank()){
+                        observeDataListGithub()
+                    }
                 }
 
             })
@@ -89,8 +98,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-            } else {
-                observeDataListGithub()
             }
         }
     }
